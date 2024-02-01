@@ -53,24 +53,32 @@ const boss = {
   name: "Tony Hawk",
   emoji: "🦅",
   hp: 30,
+  totalHp: 30,
   skill: 2,
   gold: 50,
   level: 1
 }
 
 
-
+let gold = 0
 
 function attackToBoss() {
   let damageDealt = 0
   let purchasedHeroes = heroes.filter(hero => hero.bought == true)
-  console.log(purchasedHeroes)
+  console.log('the heroes attack!')
   // purchasedHeroes.forEach()
   purchasedHeroes.forEach(hero => damageDealt += hero.skill)
   // console.log(damageDealt);
   boss.hp -= damageDealt
   if (boss.hp < 0){
     boss.hp = 0
+    window.alert(`You killed the boss ${boss.name, boss.emoji} Level: ${boss.level}. You gained ${gold} and all your heros leved up!`)
+    boss.level++
+    boss.totalHp *=1.5
+    boss.hp = boss.totalHp
+    boss.gold *= 1.5
+    purchasedHeroes.forEach(hero => {hero.level++, 
+    hero.skill++, hero.hp+2})
   }
   console.log(`${boss.hp}`);
 }
@@ -78,16 +86,27 @@ function attackToBoss() {
 function attackToHeroes(){
   let damageDealt = boss.skill
   let purchasedHeroes = heroes.filter(hero => hero.bought == true)
+  if (boss.hp == 0) {
+    return
+  }
   purchasedHeroes.forEach(hero => {
     hero.hp -= damageDealt
     if (hero.hp < 0) {
       hero.hp = 0
+      hero.bought = false
+
     }
   })
-  console.log(purchasedHeroes)
+  console.log('the boss attacks!')
 
   // Clamp 
   
 }
 
+
+function purchaseHero() {
+  let unpledgedHeroes = heroes.forEach(hero => !hero.bought)
+  
+
+}
 setInterval(attackToHeroes, 5000)
