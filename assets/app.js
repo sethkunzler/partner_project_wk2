@@ -72,13 +72,15 @@ function attackToBoss() {
   boss.hp -= damageDealt
   if (boss.hp < 0){
     boss.hp = 0
-    window.alert(`You killed the boss ${boss.name, boss.emoji} Level: ${boss.level}. You gained ${gold} and all your heros leved up!`)
+    window.alert(`You killed the boss ${boss.name, boss.emoji} Level: ${boss.level}. You gained ${boss.gold} and all your heros leved up!`)
+    gold += boss.gold
     boss.level++
     boss.totalHp *=1.5
     boss.hp = boss.totalHp
     boss.gold *= 1.5
     purchasedHeroes.forEach(hero => {hero.level++, 
     hero.skill++, hero.hp+2})
+    getHTMLElements()
   }
   console.log(`${boss.hp}`);
 }
@@ -98,7 +100,7 @@ function attackToHeroes(){
     }
   })
   console.log('the boss attacks!')
-
+  
   // Clamp 
   
 }
@@ -107,6 +109,21 @@ function attackToHeroes(){
 function purchaseHero() {
   let unpledgedHeroes = heroes.forEach(hero => !hero.bought)
   
-
+  
 }
+
+function getHTMLElements() {
+  const heroElement = document.getElementById('Jerms')
+  let purchasedHeroes = heroes.filter(hero => hero.bought == true)
+ purchasedHeroes.forEach(hero =>  heroElement.innerHTML = `${hero.name} ${hero.emoji} <br> Hp: ${hero.hp} <br> lvl: ${hero.level}`)
+  // heroElement.innerHTML = `${hero.name} ${hero.emoji} <br> Hp: ${hero.hp} <br> lvl: ${hero.level}`
+  console.log(hero.name)
+  // const tonyHawkElement = document.getElementById('tony hawk')
+  // const mickElement = document.getElementById('Mick')
+  // const paulBunyanElement = document.getElementById('Paul Bunyan')
+  // const paulRevereElement = document.getElementById('Paul Revere')
+  // const jakeElement = document.getElementById('Jake')
+
+} 
+
 setInterval(attackToHeroes, 5000)
